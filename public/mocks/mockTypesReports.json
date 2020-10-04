@@ -1,0 +1,32 @@
+[
+  {
+    "key": "item1",
+    "type": "hot",
+    "company": "HOT",
+    "selected": false
+  },
+  {
+    "key": "item2",
+    "type": "intermediate",
+    "company": "INTERMEDIATE",
+    "selected": false
+  },
+  {
+    "key": "item3",
+    "type": "advanced",
+    "company": "ADVANCED",
+    "selected": false
+  },
+  {
+    "key": "item4",
+    "type": "hardcore",
+    "company": "HARDCORE",
+    "selected": false
+  },
+  {
+    "key": "item5",
+    "type": "academic",
+    "company": "ACADEMIC",
+    "selected": false
+  }
+]

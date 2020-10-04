@@ -1,0 +1,50 @@
+[
+  {
+    "lang": "en",
+    "type": "intermediate",
+    "author": "Guillermo Runch",
+    "description": "Client rendering, server rendering, pre rendering. The full spectrum of JS website and application performance delivery"
+  },
+  {
+    "lang": "ru",
+    "type": "advanced",
+    "author": "Павел Черторогов",
+    "description": "Graphql-фрагменты на клиенте: История появления, ошибки использования"
+  },
+  {
+    "lang": "en",
+    "type": "advanced",
+    "author": "Nicolo Ribaudo",
+    "description": "@babel/how-to"
+  },
+  {
+    "lang": "ru",
+    "type": "hardcore",
+    "author": "Ярослав Лосев",
+    "description": "Доклад позволяет практикующим разработчикам глубже окунуться в то, как устроен React и его архитектура."
+  },
+  {
+    "lang": "en",
+    "type": "advanced",
+    "author": "Theodore Vorillas",
+    "description": "End-to-end testing has been close to impossible since mobile devices are quite restrictive even for simple use cases. In this talk you will find out how you can prototype a robot that swipes, pinches and taps using JavaScript."
+  },
+  {
+    "lang": "ru",
+    "type": "hardcore",
+    "author": "Роман Дворнов",
+    "description": "Css definition syntax"
+  },
+  {
+    "lang": "ru",
+    "type": "academic",
+    "author": "Sam Peterson",
+    "description": "Path in Javascript and other"
+  },
+  {
+    "lang": "en",
+    "type": "academic",
+    "author": "Денис Радин",
+    "description": "Путь в Яваскрипт"
+  }
+]
