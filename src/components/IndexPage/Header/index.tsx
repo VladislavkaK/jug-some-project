@@ -1,6 +1,5 @@
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { toJS } from 'mobx';
 import { styled } from 'baseui';
 import {
   Checkbox,
@@ -49,8 +48,6 @@ const StyledLeftContainer = styled('div', {
 const StyledCenterContainer = styled('div', {
   display: 'flex',
   justifyContent: 'flex-start',
-  width: '500px',
-  overflow: 'auto'
 });
 
 const StyledRightContainer = styled('div', {
