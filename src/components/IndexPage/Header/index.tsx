@@ -8,7 +8,7 @@ import {
 import { MaskedInput, SIZE as SIZEInput } from "baseui/input";
 import { Button, SIZE as SIZEButton } from "baseui/button";
 import { Search as SeacrhIcon } from 'baseui/icon';
-import { TypeReport } from '../../../store/ReportStore';
+import { TypeReport } from '../../../store/ReportStore/types';
 
 interface HeaderProps extends WithTranslation {
   checkedLanguage: {
@@ -27,6 +27,7 @@ interface HeaderProps extends WithTranslation {
   setData: React.Dispatch<React.SetStateAction<TypeReport[]>>;
   data: TypeReport[];
   filterByType: string[];
+  handleChangeByType: (e: React.ChangeEvent<HTMLInputElement>, key: string) => void;
 };
 
 const StyledContainer = styled('header', {
@@ -56,6 +57,8 @@ const StyledRightContainer = styled('div', {
   marginLeft: 'auto'
 });
 
+const REG_EN_RU = /[^a-zа-яё ]/i;
+
 const Header: React.FC<HeaderProps> = ({
   checkedLanguage,
   handleChangeLang,
@@ -66,6 +69,7 @@ const Header: React.FC<HeaderProps> = ({
   data,
   setData,
   filterByType,
+  handleChangeByType,
   ...props
 }) => {
   return (
@@ -104,34 +108,7 @@ const Header: React.FC<HeaderProps> = ({
               key={item.key}
               checked={item.selected}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setData((currentData) => {
-                    const newData = currentData.map((el) => {
-                      if (el.key === item.key) {
-
-                        const newArr = [...filterByType];
-
-                        if (!el.selected) newArr.push(el.type);
-
-                        if (el.selected) {
-                          const i = newArr.indexOf(el.type);
-                          newArr.splice(i, 1);
-                        }
-
-                        setFilterByType(newArr);
-                        
-                        return {
-                          ...el,
-                          selected: e.target.checked
-                        };
-                      }
-
-                      return {
-                        ...el,
-                      }
-                    });
-
-                    return newData;
-                });
+                handleChangeByType(e, item.key);
               }}
               labelPlacement={LABEL_PLACEMENT.right}
               overrides={{
@@ -151,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({
         <MaskedInput
           value={seacrhValue}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            if (!/[^a-zа-яё ]/i.test(e.target.value)) setSearchValue(e.target.value);
+            if (!REG_EN_RU.test(e.target.value)) setSearchValue(e.target.value);
           }}
           clearOnEscape
           size={SIZEInput.compact}

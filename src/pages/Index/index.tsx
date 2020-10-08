@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import Header from '../../components/IndexPage/Header';
 import Main from '../../components/IndexPage/Main';
 import { useStores } from '../../store';
-import { TypeReport } from '../../store/ReportStore';
+import { TypeReport } from '../../store/ReportStore/types';
 
 const StyledWrapContainer = styled('div', {
   display: 'flex',
@@ -64,6 +64,37 @@ function IndexPage() {
     []
   );
 
+  const handleChangeByType = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
+    setData((currentData) => {
+      const newData = currentData.map((el) => {
+        if (el.key === key) {
+
+          const newArr = [...filterByType];
+
+          if (!el.selected) newArr.push(el.type);
+
+          if (el.selected) {
+            const i = newArr.indexOf(el.type);
+            newArr.splice(i, 1);
+          }
+
+          setFilterByType(newArr);
+          
+          return {
+            ...el,
+            selected: e.target.checked
+          };
+        }
+
+        return {
+          ...el,
+        }
+      });
+
+      return newData;
+  });
+  }
+
   return (
     <StyledWrapContainer>
       <Header 
@@ -76,6 +107,7 @@ function IndexPage() {
         filterByType={filterByType}
         data={data}
         setData={setData}
+        handleChangeByType={handleChangeByType}
       />
       <Main 
         reports={reportStore.reports}

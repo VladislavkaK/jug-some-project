@@ -2,20 +2,8 @@ import { observable, action, runInAction, makeObservable } from 'mobx';
 import axios from 'axios';
 import { get } from 'lodash';
 import { configLocale } from '../../locale';
-
-export type Report = {
-  lang: 'ru' | 'en';
-  type: 'intermediate' | 'advanced' | 'hardcore' | 'hot' | 'academic';
-  author: string;
-  description: string;
-}
-
-export type TypeReport = {
-  key: string;
-  type: 'intermediate' | 'advanced' | 'hardcore' | 'hot' | 'academic';
-  company: string;
-  selected: boolean;
-};
+import { Report, TypeReport } from './types';
+import { ReportTransformer } from '../../transformers/ReportTransformer';
 
 class ReportStore {
   @observable 
@@ -27,7 +15,7 @@ class ReportStore {
   @observable 
   types: TypeReport[] = [];
 
-  constructor() {
+  constructor(private _reportTransformer: ReportTransformer) {
     makeObservable(this);
   }
 
@@ -47,30 +35,16 @@ class ReportStore {
     filterByType?: any
 ) {
     const res = await axios('/mocks/mockReports.json');
-    let data: Report[] = get(res, 'data', []);
+    const data: Report[] = get(res, 'data', []);
 
-    if (selectedLanguage.en) {
-      data = res.data.filter((item: Report) => item.lang === 'en');
-    }
-
-    if (selectedLanguage.ru) {
-      data = res.data.filter((item: Report) => item.lang === 'ru');
-    }
-
-    if (filterByType.length > 0) {
-      data = 
-        data.filter((item: Report) => {
-          return filterByType.includes(item.type);
-        });
-    }
-
-    if (seacrhValue) {
-      data = 
-        data.filter((item: Report) => item.author.indexOf(seacrhValue) !== -1 || item.description.indexOf(seacrhValue) !== -1);
-    }
+    this._reportTransformer.setData(data);
+    this._reportTransformer.setLanguage(selectedLanguage);
+    this._reportTransformer.setSearchValue(seacrhValue);
+    this._reportTransformer.setType(filterByType);
+    this._reportTransformer.filteredReports();
 
     runInAction(() => {
-      this.reports = data;
+      this.reports = this._reportTransformer.data;
     });
   }
 

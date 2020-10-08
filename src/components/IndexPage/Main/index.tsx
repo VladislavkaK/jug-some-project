@@ -4,7 +4,7 @@ import {
   Paragraph1,
   Paragraph2,
 } from 'baseui/typography';
-import { Report } from '../../../store/ReportStore';
+import { Report } from '../../../store/ReportStore/types';
 
 interface MainProps {
   reports: Report[];

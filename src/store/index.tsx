@@ -1,6 +1,7 @@
 import React from 'react';
 import { enableLogging } from 'mobx-logger';
 import ReportStore from './ReportStore';
+import { ReportTransformer } from '../transformers/ReportTransformer';
 
 enableLogging({
   action: true,
@@ -9,7 +10,7 @@ enableLogging({
   compute: false,
 });
 
-const reportStore = new ReportStore();
+const reportStore = new ReportStore(new ReportTransformer());
 
 export const storesContext = React.createContext({
   reportStore
